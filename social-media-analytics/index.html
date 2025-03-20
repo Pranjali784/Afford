@@ -3,15 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Analytics</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Show Data on Click</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #dataContainer {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            color: white;
+        }
+        .btn-show-users { background-color: blue; }
+        .btn-show-posts { background-color: green; }
+        .btn-show-both { background-color: orange; }
+        .btn-hide { background-color: red; }
+    </style>
 </head>
 <body>
-    <h1>Social Media Analytics</h1>
-    <div id="top-users"></div>
-    <div id="trending-posts"></div>
-    <div id="feed"></div>
 
-    <script src="app.js"></script>
+    <h1>Click a Button to Show Data</h1>
+    
+    <button class="btn-show-users" onclick="showUsers()">Show Users</button>
+    <button class="btn-show-posts" onclick="showPosts()">Show Posts</button>
+    <button class="btn-show-both" onclick="showBoth()">Show Both</button>
+    <button class="btn-hide" onclick="hideData()">Hide All</button>
+
+    <div id="dataContainer">
+        <h2>Users:</h2>
+        <ul id="usersList"></ul>
+        
+        <h2>Posts:</h2>
+        <ul id="postsList"></ul>
+    </div>
+
+    <script>
+        const data = {
+            "users": [
+                { "id": 1, "name": "Alice", "postCount": 10 },
+                { "id": 2, "name": "Bob", "postCount": 8 }
+            ],
+            "posts": [
+                { "id": 101, "title": "Post 1", "comments": [1, 2, 3] },
+                { "id": 102, "title": "Post 2", "comments": [4, 5] }
+            ]
+        };
+
+        function showUsers() {
+            let container = document.getElementById("dataContainer");
+            let usersList = document.getElementById("usersList");
+            let postsList = document.getElementById("postsList");
+
+            container.style.display = "block";
+            usersList.innerHTML = "";
+            postsList.innerHTML = "";
+
+            data.users.forEach(user => {
+                let li = document.createElement("li");
+                li.textContent = `${user.name} - ${user.postCount} posts`;
+                usersList.appendChild(li);
+            });
+        }
+
+        function showPosts() {
+            let container = document.getElementById("dataContainer");
+            let usersList = document.getElementById("usersList");
+            let postsList = document.getElementById("postsList");
+
+            container.style.display = "block";
+            usersList.innerHTML = "";
+            postsList.innerHTML = "";
+
+            data.posts.forEach(post => {
+                let li = document.createElement("li");
+                li.textContent = `${post.title} - ${post.comments.length} comments`;
+                postsList.appendChild(li);
+            });
+        }
+
+        function showBoth() {
+            let container = document.getElementById("dataContainer");
+            let usersList = document.getElementById("usersList");
+            let postsList = document.getElementById("postsList");
+
+            container.style.display = "block";
+            usersList.innerHTML = "";
+            postsList.innerHTML = "";
+
+            data.users.forEach(user => {
+                let li = document.createElement("li");
+                li.textContent = `${user.name} - ${user.postCount} posts`;
+                usersList.appendChild(li);
+            });
+
+            data.posts.forEach(post => {
+                let li = document.createElement("li");
+                li.textContent = `${post.title} - ${post.comments.length} comments`;
+                postsList.appendChild(li);
+            });
+        }
+
+        function hideData() {
+            document.getElementById("dataContainer").style.display = "none";
+        }
+    </script>
+
 </body>
 </html>
